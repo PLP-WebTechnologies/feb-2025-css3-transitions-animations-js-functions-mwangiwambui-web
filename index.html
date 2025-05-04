@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSS Animation & localStorage</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+      transition: background-color 0.5s ease;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    button:active {
+      animation: pulse 0.4s;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Customize Background Color</h1>
+  <button onclick="changeColor()">Change Color</button>
+
+  <script>
+    const colors = ["#f8b400", "#1abc9c", "#9b59b6", "#34495e", "#2ecc71"];
+    let colorIndex = 0;
+
+    // Load stored color on page load
+    window.onload = () => {
+      const savedColor = localStorage.getItem("bgColor");
+      if (savedColor) {
+        document.body.style.backgroundColor = savedColor;
+        colorIndex = colors.indexOf(savedColor);
+      }
+    };
+
+    function changeColor() {
+      colorIndex = (colorIndex + 1) % colors.length;
+      const newColor = colors[colorIndex];
+      document.body.style.backgroundColor = newColor;
+      localStorage.setItem("bgColor", newColor);
+    }
+  </script>
+
+</body>
+</html>
